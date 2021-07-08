@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-
+const {newNote} = require('./db/db.json');
 const PORT = process.env.PORT || 3001;
 const app = express();
 const apiRoutes = require('./routes/apiRoutes/notes');
@@ -27,7 +27,13 @@ function createNewNote (body, noteArr) {
         path.join(__dirname, './db/db.json'),
         JSON.stringify({ notes: noteArr }, null, 2)
     );
+    app.post("/api/notes", (req, res) => {
+        let results = newNote;
+        res.json(results);
+    })
+    
     return newNote;
+    
 }
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
@@ -42,6 +48,7 @@ app.get("/notes", (req, res) => {
     res.json(db.json);
     console.log(db.json);
 })
+
 
 // router.post("/notes", (req, res) => {
 // res.sendFile(path.join(__dirname, "/public/notes.html"));  
