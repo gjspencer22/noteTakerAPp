@@ -1,14 +1,25 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
+  "description": "# Description This app is so users can take notes and keep track of important things.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gjspencer22/noteTakerApp.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/gjspencer22/noteTakerApp/issues"
+  },
+  "homepage": "https://github.com/gjspencer22/noteTakerApp#readme"
 }
