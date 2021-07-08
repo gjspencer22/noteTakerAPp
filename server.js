@@ -15,6 +15,17 @@ app.use(express.static('public'));
 // app.use('/', htmlRoutes);
 
 
+
+
+function createNewNote (body, noteArr) {
+    const newNote = body;
+    noteArr.push(newNote);
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify({ notes: noteArr }, null, 2)
+    );
+    return newNote;
+}
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
 });
@@ -25,7 +36,11 @@ app.get("/", (req, res) => {
 })
 
 app.get("/notes", (req, res) => {
-    
+
 })
+
+// router.post("/notes", (req, res) => {
+// res.sendFile(path.join(__dirname, "/public/notes.html"));  
+// })
 
 
