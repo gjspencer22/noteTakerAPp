@@ -14,74 +14,48 @@ app.use(express.static('public'));
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
-// app.use('/api', apiRoutes);
-// app.use('/', htmlRoutes);
 
-
-
-
-function createNewNote(body, noteArr) {
-    const newNote = body;
-    noteArr.push(newNote);
+function newNote(body, noteArr) {
+    const note = body;
+    noteArr.push(note);
     fs.writeFileSync(
-        path.join(__dirname, './db/db.json'),
+        path.join(__dirname, "./db/db.json"),
         JSON.stringify({ notes: noteArr }, null, 2)
     );
-    app.post("/api/notes", (req, res) => {
-        let results = newNote;
-        res.json(results);
-    })
 
-    return newNote;
-
+    return note;
 }
 
-app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
+app.get("/api/notes", (req, res) => {
+    let results = notes;
+    res.json(results);
+
 });
 
-app.get("/", (req, res) => {
-    res.json(db.json);
 
-})
+app.post("/api/notes", (req, res) => {
+    req.body.id = notes.length.toString();
 
-app.get("/notes", (req, res) => {
-    res.json(db.json);
-    console.log(db.json);
-})
-
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
+    const note = newNote(req.body, notes);
+    res.json(note);
 });
+
 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
-    
 });
 
 
-app.get("/api/notes", (req, res) => {
-    let results = notes;
-    res.json(results);
-  
-  });
 
-  app.post("/api/notes", (req, res) => {
-    req.body.id = notes.length.toString();
-  
-    const note = createNewNote(req.body, notes);
-    res.json(note);
-  });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
-  
-// router.post("/notes", (req, res) => {
-// res.sendFile(path.join(__dirname, "/public/notes.html"));  
-// })
-
-
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}`);
+});
